@@ -1,4 +1,5 @@
 import 'package:blogclub/data.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 
@@ -15,32 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        scaffoldBackgroundColor: Colors.white,
-        textTheme: TextTheme(
-          headlineMedium: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontFamily: "Avenir",
-          ),
-        ),
-      ),
+      theme: _ThemeConfig.theme(),
       home: MyHomePage(),
     );
   }
@@ -49,6 +25,7 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   MyHomePage({super.key});
   final List<StoryData> stories = AppDatabase.stories;
+  final categories = AppDatabase.categories;
   @override
   Widget build(BuildContext context) {
     final TextTheme themeData = Theme.of(context).textTheme;
@@ -60,28 +37,10 @@ class MyHomePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(32, 16, 32, 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Hi, Jonathan!"),
-                    Image.asset(
-                      "assets/img/icons/notification.png",
-                      width: 35,
-                      height: 35,
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(32, 0, 32, 10),
-                child: Text(
-                  "Explore today's",
-                  style: themeData.headlineMedium!.copyWith(fontSize: 24),
-                ),
-              ),
+              _Header(),
+              _Title(themeData: themeData),
               _ListView(screenWidth: screenWidth, stories: stories),
+              _CategoryCarousel(categories: categories, themeData: themeData),
             ],
           ),
         ),
@@ -90,12 +49,166 @@ class MyHomePage extends StatelessWidget {
   }
 }
 
-class _ListView extends StatelessWidget {
-  const _ListView({
-    super.key,
-    required this.screenWidth,
-    required this.stories,
+class _ThemeConfig {
+  static ThemeData theme() {
+    return ThemeData(
+      colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      scaffoldBackgroundColor: Colors.white,
+      textTheme: TextTheme(
+        labelMedium: TextStyle(
+          color: Colors.white,
+          fontSize: 19,
+          fontWeight: FontWeight.w700,
+          fontFamily: "Avener",
+        ),
+        headlineMedium: TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+          fontFamily: "Avenir",
+        ),
+      ),
+    );
+  }
+}
+
+class _Header extends StatelessWidget {
+  const _Header();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(32, 16, 32, 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text("Hi, Jonathan!"),
+          Image.asset(
+            "assets/img/icons/notification.png",
+            width: 35,
+            height: 35,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Title extends StatelessWidget {
+  const _Title({required this.themeData});
+
+  final TextTheme themeData;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(32, 0, 32, 10),
+      child: Text(
+        "Explore today's",
+        style: themeData.headlineMedium!.copyWith(fontSize: 24),
+      ),
+    );
+  }
+}
+
+class _CategoryCarousel extends StatelessWidget {
+  const _CategoryCarousel({required this.categories, required this.themeData});
+
+  final List<Category> categories;
+  final TextTheme themeData;
+
+  @override
+  Widget build(BuildContext context) {
+    return CarouselSlider.builder(
+      itemCount: categories.length,
+      itemBuilder: (context, index, realIndex) {
+        final category = categories[realIndex];
+        return _CategoryItem(
+          category: category,
+          themeData: themeData,
+          left: realIndex == 0 ? 32 : 8,
+          right: realIndex == categories.length - 1 ? 32 : 8,
+        );
+      },
+      options: CarouselOptions(
+        padEnds: false,
+        scrollDirection: Axis.horizontal,
+        aspectRatio: 1.2,
+        enableInfiniteScroll: false,
+        enlargeCenterPage: true,
+        autoPlay: false,
+        enlargeFactor: 0.3,
+        enlargeStrategy: CenterPageEnlargeStrategy.height,
+      ),
+    );
+  }
+}
+
+class _CategoryItem extends StatelessWidget {
+  final double left;
+  final double right;
+  const _CategoryItem({
+    required this.category,
+    required this.themeData,
+    required this.left,
+    required this.right,
   });
+
+  final Category category;
+  final TextTheme themeData;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(left, 0, right, 0),
+      child: Stack(
+        children: [
+          Positioned.fill(
+            bottom: 35,
+            left: 40,
+            right: 40,
+            top: 100,
+            child: Container(
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 20,
+                    spreadRadius: 0,
+                    color: Color.fromARGB(90, 0, 0, 0),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(32),
+            child: Container(
+              decoration: BoxDecoration(),
+              foregroundDecoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.center,
+                  colors: [Color(0xff0D253C), Color(0x1A0D253C)],
+                ),
+              ),
+              child: Image.asset(
+                "assets/img/posts/large/${category.imageFileName}",
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Positioned.fill(
+            top: 240,
+            left: 30,
+            child: Text(category.title, style: themeData.labelMedium),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ListView extends StatelessWidget {
+  const _ListView({required this.screenWidth, required this.stories});
 
   final double screenWidth;
   final List<StoryData> stories;
@@ -123,7 +236,7 @@ class _ListView extends StatelessWidget {
 }
 
 class _Story extends StatelessWidget {
-  const _Story({super.key, required this.story});
+  const _Story({required this.story});
 
   final StoryData story;
 
@@ -192,7 +305,7 @@ class _Story extends StatelessWidget {
 }
 
 class _StoryViewed extends StatelessWidget {
-  _StoryViewed({super.key, required this.story});
+  const _StoryViewed({required this.story});
 
   final StoryData story;
 
@@ -207,7 +320,7 @@ class _StoryViewed extends StatelessWidget {
               DottedBorder(
                 color: Colors.black,
                 strokeWidth: 2,
-                dashPattern: [6,3,9,3],
+                dashPattern: [6, 3, 9, 3],
                 borderType: BorderType.RRect,
                 radius: Radius.circular(24),
                 child: Padding(
