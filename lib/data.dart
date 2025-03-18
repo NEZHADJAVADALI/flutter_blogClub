@@ -58,16 +58,16 @@ class AppDatabase {
     return [
       OnBoardData(
           title: "Read the article you want instantly - 1",
-          caption: "You can read thousands of articles on Blog Club, save them in the application and share them with your loved ones."),
+          caption: "You can read thousands of articles on Blog Club, "),
       OnBoardData(
           title: "Read the article you want instantly - 2",
-          caption: "You can read thousands of articles on Blog Club, save them in the application and share them with your loved ones."),
+          caption: "You can read thousands of articles on Blog Club, save them in the application and share them with your loved ones,this is part two"),
       OnBoardData(
           title: "Read the article you want instantly - 3",
-          caption: "You can read thousands of articles on Blog Club, save them in the application and share them with your loved ones."),
+          caption: "You can read thousands of articles on Blog Club, save them in the application and share them with your loved ones.this is part three"),
       OnBoardData(
           title: "Read the article you want instantly - 4",
-          caption: "You can read thousands of articles on Blog Club, save them in the application and share them with your loved ones.")
+          caption: "You can read thousands of articles on Blog Club, save them in the application and share them with your loved ones.and finally this is part 4")
     ];
   }
   

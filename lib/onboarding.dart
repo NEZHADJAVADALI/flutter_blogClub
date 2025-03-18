@@ -1,6 +1,7 @@
 import 'package:blogclub/data.dart';
 import 'package:blogclub/gen/assets.gen.dart';
 import 'package:blogclub/home.dart';
+import 'package:blogclub/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -89,9 +90,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         child: _currentPage == onBoardData.length -1?Icon(CupertinoIcons.check_mark) :Icon(CupertinoIcons.arrow_right),
                         onPressed: () {
                           if (_currentPage != onBoardData.length-1){
-                            _pageController.animateToPage(_currentPage+1, duration: Duration(microseconds: 500), curve: Curves.bounceInOut);
+                            _pageController.animateToPage(_currentPage+1, duration: Duration(microseconds: 500), curve: Curves.decelerate);
                           }else{
-                            Navigator.of(context).pushReplacement(CupertinoPageRoute(builder: (context){return MyHomePage();}),);}})
+                            Navigator.of(context).pushReplacement(CupertinoPageRoute(builder: (context){return LoginSignUp();}),);}})
     ]),
                 ),
                 SizedBox(height: 32),

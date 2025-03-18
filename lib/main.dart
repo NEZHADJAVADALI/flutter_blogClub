@@ -15,7 +15,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeConfig.theme(),
@@ -30,19 +29,25 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
 class ThemeConfig {
   static ThemeData theme() {
     return ThemeData(
       colorScheme: ColorScheme(
         brightness: Brightness.light,
-        primary: Color(0xFF376AED), onPrimary: Color(0xffffffff), secondary: Color(0xff376AED), onSecondary: Color(0xffffffff), error: Color(0xffffffff), onError: Color(0xff000000), surface: Color(0xffffffff), onSurface: Color(0xff000000),
+        primary: Color(0xFF376AED),
+        onPrimary: Color(0xffffffff),
+        secondary: Color(0xff376AED),
+        onSecondary: Color(0xffffffff),
+        error: Color(0xffffffff),
+        onError: Color(0xff000000),
+        surface: Color(0xffffffff),
+        onSurface: Color(0xff000000),
       ),
-    textTheme: TextTheme(
+      textTheme: TextTheme(
         labelMedium: TextStyle(
           color: Colors.white,
           fontSize: 19,
-          fontWeight: FontWeight.w700,
+          fontWeight: FontWeight.w600,
           fontFamily: "Avenir",
         ),
         headlineMedium: TextStyle(
@@ -74,11 +79,10 @@ class ThemeConfig {
           fontFamily: FontFamily.avenir,
           fontSize: 14,
         ),
-      
-    ));
+      ),
+    );
   }
 }
-
 
 class _ButtomNavigation extends StatelessWidget {
   @override
