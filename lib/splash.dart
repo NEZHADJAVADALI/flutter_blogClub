@@ -13,12 +13,16 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 3)).then((onValue) {
-      Navigator.of(
-        context,
-      ).pushReplacement(MaterialPageRoute(builder: (context) => OnBoardingScreen()));
-    });
     super.initState();
+    _navigateToOnBoarding();
+  }
+
+  Future<void> _navigateToOnBoarding() async {
+    await Future.delayed(Duration(seconds: 3));
+    if (!mounted) return; // Check if the widget is still mounted
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => OnBoardingScreen()),
+    );
   }
 
   @override

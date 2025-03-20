@@ -1,6 +1,5 @@
 import 'package:blogclub/data.dart';
 import 'package:blogclub/gen/assets.gen.dart';
-import 'package:blogclub/home.dart';
 import 'package:blogclub/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

@@ -1,6 +1,9 @@
 import 'package:blogclub/gen/assets.gen.dart';
-
+import 'package:blogclub/article.dart';
 import 'package:flutter/material.dart';
+
+// Ensure article.dart exists and is correctly implemented
+// import 'package:blogclub/article.dart';
 
 class LoginSignUp extends StatefulWidget {
   const LoginSignUp({super.key});
@@ -45,13 +48,13 @@ class _LoginSignUpState extends State<LoginSignUp> {
                 ),
                 loginOrSignUp == Auth.login
                     ? _LoginSection(
-                  screenWidth: screenWidth,
-                  themedata: themedata,
-                )
+                      screenWidth: screenWidth,
+                      themedata: themedata,
+                    )
                     : _SignUpSection(
-                  screenWidth: screenWidth,
-                  themedata: themedata,
-                )
+                      screenWidth: screenWidth,
+                      themedata: themedata,
+                    ),
               ],
             ),
           ),
@@ -87,7 +90,7 @@ class _LoginSection extends StatelessWidget {
       child: Container(
         width: screenWidth,
         decoration: BoxDecoration(
-          color: themedata.colorScheme.surface, //themedata.colorScheme.surface,
+          color: themedata.colorScheme.surface,
           borderRadius: BorderRadius.only(
             topRight: Radius.circular(32),
             topLeft: Radius.circular(32),
@@ -100,7 +103,10 @@ class _LoginSection extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text("Welcome Back", style: themedata.textTheme.headlineMedium),
+                    Text(
+                      "Welcome Back",
+                      style: themedata.textTheme.headlineMedium,
+                    ),
                   ],
                 ),
                 SizedBox(height: 6),
@@ -118,16 +124,24 @@ class _LoginSection extends StatelessWidget {
                 _PasswordTextField(),
                 const SizedBox(height: 32),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return Article();
+                        },
+                      ),
+                    );
+                  },
                   style: ButtonStyle(
-                    minimumSize: WidgetStatePropertyAll(Size(295, 60)),
-                    backgroundColor: WidgetStatePropertyAll(
+                    minimumSize: WidgetStateProperty.all(Size(295, 60)),
+                    backgroundColor: WidgetStateProperty.all(
                       themedata.colorScheme.primary,
                     ),
-                    foregroundColor: WidgetStatePropertyAll(
+                    foregroundColor: WidgetStateProperty.all(
                       themedata.colorScheme.onPrimary,
                     ),
-                    shape: WidgetStatePropertyAll(
+                    shape: WidgetStateProperty.all(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(6),
                       ),
@@ -176,7 +190,7 @@ class _SignUpSection extends StatelessWidget {
       child: Container(
         width: screenWidth,
         decoration: BoxDecoration(
-          color: themedata.colorScheme.surface, //themedata.colorScheme.surface,
+          color: themedata.colorScheme.surface,
           borderRadius: BorderRadius.only(
             topRight: Radius.circular(32),
             topLeft: Radius.circular(32),
@@ -189,19 +203,24 @@ class _SignUpSection extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text("Welcome Back", style: themedata.textTheme.headlineMedium),
+                    Text(
+                      "Welcome Back",
+                      style: themedata.textTheme.headlineMedium,
+                    ),
                   ],
                 ),
                 SizedBox(height: 6),
                 Row(
                   children: [
                     Text(
-                      "Sign uo with your account",
+                      "Sign up with your account",
                       style: themedata.textTheme.bodyMedium,
                     ),
                   ],
                 ),
-                TextField(decoration: InputDecoration(label: Text("Full name"))),
+                TextField(
+                  decoration: InputDecoration(label: Text("Full name")),
+                ),
                 SizedBox(height: 16),
                 TextField(decoration: InputDecoration(label: Text("Username"))),
                 const SizedBox(height: 16),
@@ -210,14 +229,14 @@ class _SignUpSection extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {},
                   style: ButtonStyle(
-                    minimumSize: WidgetStatePropertyAll(Size(295, 60)),
-                    backgroundColor: WidgetStatePropertyAll(
+                    minimumSize: WidgetStateProperty.all(Size(295, 60)),
+                    backgroundColor: WidgetStateProperty.all(
                       themedata.colorScheme.primary,
                     ),
-                    foregroundColor: WidgetStatePropertyAll(
+                    foregroundColor: WidgetStateProperty.all(
                       themedata.colorScheme.onPrimary,
                     ),
-                    shape: WidgetStatePropertyAll(
+                    shape: WidgetStateProperty.all(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(6),
                       ),

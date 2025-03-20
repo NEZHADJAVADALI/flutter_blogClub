@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'data.dart';
-import 'gen/fonts.gen.dart';
 import 'main.dart';
 
 class MyHomePage extends StatelessWidget {
