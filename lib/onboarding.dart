@@ -92,7 +92,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             _pageController.animateToPage(_currentPage+1, duration: Duration(microseconds: 500), curve: Curves.decelerate);
                           }else{
                             Navigator.of(context).pushReplacement(CupertinoPageRoute(builder: (context){return LoginSignUp();}),);}})
-    ]),
+          ]),
                 ),
                 SizedBox(height: 32),
               ],

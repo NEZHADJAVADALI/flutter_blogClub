@@ -1,4 +1,3 @@
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,7 +27,7 @@ class MyHomePage extends StatelessWidget {
               _ListView(screenWidth: screenWidth, stories: stories),
               _CategoryCarousel(categories: categories, themeData: themeData),
               _PostHeader(),
-              _PostList(posts: posts),
+              PostList(posts: posts),
             ],
           ),
         ),
@@ -38,88 +37,92 @@ class MyHomePage extends StatelessWidget {
 }
 
 
-class _PostList extends StatelessWidget {
-  const _PostList({required this.posts});
+class PostList extends StatelessWidget {
+  const PostList({super.key, required this.posts});
 
   final List<PostData> posts;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      physics: NeverScrollableScrollPhysics(),
-      itemCount: posts.length,
-      shrinkWrap: true,
-      itemExtent: 141,
-      itemBuilder: (context, index) {
-        final post = posts[index];
-        return Padding(
-          padding: const EdgeInsets.fromLTRB(32, 8, 32, 8),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(24),
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 4,
-                  spreadRadius: 1,
-                  color: Color.fromARGB(25, 0, 0, 0),
-                ),
-              ],
-            ),
-            child: Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(24),
-                  child: Image.asset(
-                    "assets/img/posts/small/${post.imageFileName}",
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 16, left: 8),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          post.caption,
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        Text(post.title),
-                        const SizedBox(height: 12),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Icon(CupertinoIcons.hand_thumbsup, size: 15),
-                            const SizedBox(width: 8),
-                            Text(post.likes, style: TextStyle(fontSize: 12)),
-                            const SizedBox(width: 20),
-                            Icon(CupertinoIcons.clock, size: 15),
-                            Text(post.time),
-                            const SizedBox(width: 20),
-                            post.isBookmarked
-                                ? Icon(
-                              CupertinoIcons.bookmark_fill,
-                              size: 15,
-                              color: MyApp.primarySchemeColor,
-                            )
-                                : Icon(
-                              CupertinoIcons.bookmark,
-                              size: 15,
-                              color: MyApp.primarySchemeColor,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
+    physics: NeverScrollableScrollPhysics(),
+    itemCount: posts.length,
+    shrinkWrap: true,
+    itemExtent: 141,
+    itemBuilder: (context, index) {
+      final post = posts[index];
+      return Padding(
+        padding: const EdgeInsets.fromLTRB(32, 8, 32, 8),
+        child: Container(
+          height: 141,
+          width: 343,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(24),
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 4,
+                spreadRadius: 1,
+                color: Color.fromARGB(25, 0, 0, 0),
+              ),
+            ],
           ),
+          child: Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(24),
+                child: Image.asset(
+                  "assets/img/posts/small/${post.imageFileName}",
+                  height: 141,
+                  width: 100,
+                ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 16, left: 8),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        post.caption,
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      Text(post.title),
+                      const SizedBox(height: 12),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(CupertinoIcons.hand_thumbsup, size: 15),
+                          const SizedBox(width: 8),
+                          Text(post.likes, style: TextStyle(fontSize: 12)),
+                          const SizedBox(width: 20),
+                          Icon(CupertinoIcons.clock, size: 15),
+                          Text(post.time),
+                          const SizedBox(width: 20),
+                          post.isBookmarked
+                              ? Icon(
+                            CupertinoIcons.bookmark_fill,
+                            size: 15,
+                            color: MyApp.primarySchemeColor,
+                          )
+                              : Icon(
+                            CupertinoIcons.bookmark,
+                            size: 15,
+                            color: MyApp.primarySchemeColor,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    },
         );
-      },
-    );
   }
 }
 

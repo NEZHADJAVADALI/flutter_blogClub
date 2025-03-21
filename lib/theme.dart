@@ -7,6 +7,8 @@ class ThemeConfig {
   static ThemeData theme() {
     return ThemeData(
       colorScheme: ColorScheme(
+        shadow: Color(0x4d000000),
+        primaryContainer: Color(0xffffffff),
         brightness: Brightness.light,
         primary: Color(0xFF376AED),
         onPrimary: Color(0xffffffff),

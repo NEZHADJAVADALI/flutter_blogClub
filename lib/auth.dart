@@ -1,5 +1,5 @@
 import 'package:blogclub/gen/assets.gen.dart';
-import 'package:blogclub/article.dart';
+import 'package:blogclub/profile.dart';
 import 'package:flutter/material.dart';
 
 // Ensure article.dart exists and is correctly implemented
@@ -25,6 +25,7 @@ class _LoginSignUpState extends State<LoginSignUp> {
     final screenWidth = MediaQuery.of(context).size.width;
     final themedata = Theme.of(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Color(0xffF4F7FF),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -128,7 +129,7 @@ class _LoginSection extends StatelessWidget {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
                         builder: (context) {
-                          return Article();
+                          return Profile();
                         },
                       ),
                     );
